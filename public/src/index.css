@@ -1,0 +1,151 @@
+body {
+  background-color: #fff;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.yellow_accent {
+  background-color: #efb310;
+}
+
+.black_accesnt {
+  background-color: #000;
+}
+
+.VerticalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.SlideInputField {
+  display: flex;
+  flex-flow: column-reverse;
+  margin-bottom: 1em;
+}
+
+.SlideLabel, .SlideInput {
+  transition: all 0.2s;
+  touch-action: manipulation;
+}
+
+.SlideInput {
+  font-size: 1.5em;
+  border: 0;
+  border-bottom: 1px solid #ccc;
+  font-family: inherit;
+  -webkit-appearance: none;
+  border-radius: 0;
+  padding: 0;
+  cursor: text;
+}
+
+.SlideInput:focus {
+  outline: 0;
+  border-bottom: 1px solid #666;
+}
+
+.SlideLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+/**
+* Translate down and scale the label up to cover the placeholder,
+* when following an input (with placeholder-shown support).
+* Also make sure the label is only on one row, at max 2/3rds of the
+* field—to make sure it scales properly and doesn't wrap.
+*/
+.SlideInput:placeholder-shown + .SlideLabel {
+  cursor: text;
+  max-width: 66.66%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transform-origin: left bottom;
+  transform: translate(0, 2.125rem) scale(1.5);
+}
+/**
+* By default, the placeholder should be transparent. Also, it should 
+* inherit the transition.
+*/
+::-webkit-input-placeholder {
+  opacity: 0;
+  transition: inherit;
+}
+/**
+* Show the placeholder when the input is focused.
+*/
+.SlideInput:focus::-webkit-input-placeholder {
+  opacity: 1;
+}
+/**
+* When the element is focused, remove the label transform.
+* Also, do this when the placeholder is _not_ shown, i.e. when 
+* there's something in the input at all.
+*/
+.SlideInput:not(:placeholder-shown) + .SlideLabel,
+.SlideInput:focus + .SlideLabel {
+  transform: translate(0, 0) scale(1);
+  cursor: pointer;
+}
+
+.YellowButton {
+  display:flex;
+  justify-content: center;
+  background-color: #efb310;
+  color: #fff;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5em 1em;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 15vw;
+  min-width: 120px;
+}
+
+.YellowButton:hover {
+  background-color: #ef8c10;
+
+}
+
+.YellowButton:active {
+  background-color: #ef5910;
+}
+
+.FadeIn {
+  animation: FadeIn 0.25s ease-in-out;
+}
+
+@keyframes FadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.FadeOut {
+  animation: FadeOut 0.25s ease-in-out;
+}
+
+@keyframes FadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.InvertedHeader {
+  background-color: #000;
+  color: #fff;
+  padding: 30px;
+}

@@ -1,0 +1,20 @@
+.LoginContainer {
+    height: 100vh;
+}
+
+.LoginHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.ButtonContainer {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 35vw;
+    min-width: 250px;
+}

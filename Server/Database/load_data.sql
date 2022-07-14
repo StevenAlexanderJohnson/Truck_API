@@ -1,0 +1,16 @@
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (1, '4-wheel drive');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (1, 'Air Conditioning');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (1, 'Insulated Bucket');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (1, 'Cupholders');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (2, 'Air Conditioning');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (2, 'Insulated Bucket');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (3, 'Air Conditioning');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (3, 'Insulated Bucket');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (3, 'Cupholders');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (4, '4-wheel drive');
+INSERT INTO trucks.truck_types (feature_id, feature_name) VALUES (4, 'Cupholders');
+INSERT INTO trucks.trucks (truck_id, truck_type, truck_price) VALUES (1, 1, 300);
+INSERT INTO trucks.trucks (truck_id, truck_type, truck_price) VALUES (2, 2, 100);
+INSERT INTO trucks.trucks (truck_id, truck_type, truck_price) VALUES (3, 2, 100);
+INSERT INTO trucks.trucks (truck_id, truck_type, truck_price) VALUES (4, 3, 200);
+INSERT INTO trucks.trucks (truck_id, truck_type, truck_price) VALUES (5, 4, 75);

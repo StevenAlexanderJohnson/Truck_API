@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  msyql:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "demo"
+      MYSQL_DATABASE: "trucks"
+      MYSQL_USER: "maria"
+      MYSQL_PASSWORD: "tech_demo"
