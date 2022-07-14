@@ -1,15 +1,14 @@
 # This is the website part of the Demo.
 
-This will display the data and what the user will interact with in order to use the API.
+This will display the data and what the user will interact with in order to use the API. 
 The API is still available to the user but will still require the user to authenticate.
 
 ## How to view the Demo
 
-After cloning the code, cd (Google how to if you don't know) into the public directory and run:
-
+After cloning the code, cd (Google how to if you don't know) into the public directory and run: 
 ### `npm start`
 
-This will launch the website on the url: [http://localhost:3000](http://localhost:3000).
+This will launch the website on the url: [http://localhost:3000](http://localhost:3000). 
 Only you should be able to navigate to this url. Other people on your wifi may be able to.
 
 
