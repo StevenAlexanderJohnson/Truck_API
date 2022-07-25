@@ -13,6 +13,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
@@ -77,6 +78,10 @@ func parse_token_middleware() gin.HandlerFunc {
 			c.JSON(401, gin.H{"error": "Unauthorized"})
 			c.Abort()
 			return
+		}
+
+		if token_payload.Expires <= time.Now().UTC().UnixNano() {
+			c.JSON(401, gin.H{"error": "Session Expired"})
 		}
 
 		// Add the token payload to the session

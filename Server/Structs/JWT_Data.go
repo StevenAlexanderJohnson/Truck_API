@@ -6,8 +6,10 @@ type Jwt_Header struct {
 }
 
 type Jwt_Payload struct {
-	User  string   `json:"user"`
-	Roles []string `json:"roles"`
+	User     string   `json:"user"`
+	Roles    []string `json:"roles"`
+	Expires  int64    `json:"exp"`
+	Assigned int64    `json:"assigned"`
 }
 
 type Invalid_Algorithm_Error struct {
