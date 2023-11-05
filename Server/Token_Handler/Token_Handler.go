@@ -14,14 +14,14 @@ import (
 )
 
 /*
-	Given a header, payload, and algorithm, generate a signature
-	The signature is used to verify the token is valid upon request.
-	This is done by taking the header and payload value from the passed token and generating
-	a signature with the passed values. Then compare the signature from the passed token with
-	the newly generated one. If the signatures match then the token is valid.
+Given a header, payload, and algorithm, generate a signature
+The signature is used to verify the token is valid upon request.
+This is done by taking the header and payload value from the passed token and generating
+a signature with the passed values. Then compare the signature from the passed token with
+the newly generated one. If the signatures match then the token is valid.
 
-	If any of the data in the header or payload has been changed, the token signature will not match
-	and we can reject the request.
+If any of the data in the header or payload has been changed, the token signature will not match
+and we can reject the request.
 */
 func generate_signature(header string, payload string, algorithm string) (string, error) {
 	// This is a secret value and should not be shared publicly.
@@ -46,12 +46,18 @@ func generate_signature(header string, payload string, algorithm string) (string
 }
 
 /*
-	Given a header and payload, generate a token.
-	Convert the header and payload to a string, base64 encode them, then concatentate them with the signature.
+Given a header and payload, generate a token.
+Convert the header and payload to a string, base64 encode them, then concatenate them with the signature.
 */
 func Sign_Token(header struct_def.Jwt_Header, payload struct_def.Jwt_Payload) (string, error) {
 	header_string, err := convert_handler.Struct_ToString(header)
+	if err != nil {
+		return "", err
+	}
 	payload_string, err := convert_handler.Struct_ToString(payload)
+	if err != nil {
+		return "", err
+	}
 	signature, err := generate_signature(header_string, payload_string, "HS256")
 	if err != nil {
 		return "", err
@@ -63,7 +69,7 @@ func Sign_Token(header struct_def.Jwt_Header, payload struct_def.Jwt_Payload) (s
 }
 
 /*
-	Using the logic from the signature comment, we verify the passed token is valid.
+Using the logic from the signature comment, we verify the passed token is valid.
 */
 func Verify_Token(token string) (bool, error) {
 	// Split the token into header, payload, and signature

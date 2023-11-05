@@ -6,7 +6,29 @@ function Login() {
     const [password, setPassword] = useState('');
 
     const logPassword = () => {
-        console.log(password);
+        fetch("http://localhost:8080/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: username,
+                password: password
+            }),
+            credentials: "include"
+        }).then(res => {
+            if (res.status === 200) {
+                setTimeout(() => {
+                    navigator('/');
+                }, 250)
+                document.getElementById("container").classList.add("FadeOut");
+            }
+            else if (res.status === 401) {
+                alert("Username is already in use.");
+            }
+        }).catch(err => {
+            alert(err.message + "\n\nPlease try again.")
+        })
     }
 
     const navigator = useNavigate();
