@@ -25,6 +25,7 @@ func Validate_Token_Middleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+		fmt.Println(token)
 		// Validate the token
 		validated, err := Token_Handler.Verify_Token(token)
 		if err != nil {
