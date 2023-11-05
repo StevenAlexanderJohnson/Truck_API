@@ -28,7 +28,7 @@ func Add_Root_Group(app *gin.Engine, db_connection *sql.DB) *gin.RouterGroup {
 				c.JSON(401, gin.H{"error": "Invalid Credentials"})
 				return
 			}
-			c.SetCookie("Auth_Token", token, 3600, "/", "localhost", false, true)
+			c.SetCookie("Auth_Token", token, 3600, "/", "localhost", true, true)
 			c.JSON(200, gin.H{"success": true})
 			return
 		})

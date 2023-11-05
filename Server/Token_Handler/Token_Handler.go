@@ -5,6 +5,7 @@ import (
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/base64"
+	"fmt"
 	"hash"
 	"time"
 
@@ -23,26 +24,33 @@ the newly generated one. If the signatures match then the token is valid.
 If any of the data in the header or payload has been changed, the token signature will not match
 and we can reject the request.
 */
-func generate_signature(header string, payload string, algorithm string) (string, error) {
+func generate_signature(header []byte, payload []byte, algorithm string) (string, error) {
 	// This is a secret value and should not be shared publicly.
 	// It should be stored in some environment variable or a config file but for demo purposes,
 	// I am storing it in a string literal.
 	key := []byte("6v9y$B&E)H@MbQeThWmZq4t7w!z%C*F-JaNdRfUjXn2r5u8x/A?D(G+KbPeShVkY")
 
-	// Determine what hash function to use.
 	var h hash.Hash
 	if algorithm == "HS256" {
 		h = hmac.New(sha256.New, key)
 	} else if algorithm == "HS384" {
 		h = hmac.New(sha512.New384, key)
-	} else if algorithm == "HS512" {
-		h = hmac.New(sha512.New384, key)
 	} else {
 		return "", &struct_def.Invalid_Token_Error{}
 	}
 
-	// Return the signature as a base64 encoded string.
-	return base64.RawURLEncoding.EncodeToString(h.Sum([]byte(header + "." + payload))), nil
+	// Base64-encode the header and payload before signing
+	encodedHeader := base64.RawURLEncoding.EncodeToString(header)
+	encodedPayload := base64.RawURLEncoding.EncodeToString(payload)
+
+	// Concatenate the encoded header and payload with a "." in between
+	data := []byte(encodedHeader + "." + encodedPayload)
+
+	// Sign the data using the selected algorithm
+	h.Write(data)
+
+	// Return the base64-encoded signature
+	return base64.RawURLEncoding.EncodeToString(h.Sum(nil)), nil
 }
 
 /*
@@ -50,20 +58,21 @@ Given a header and payload, generate a token.
 Convert the header and payload to a string, base64 encode them, then concatenate them with the signature.
 */
 func Sign_Token(header struct_def.Jwt_Header, payload struct_def.Jwt_Payload) (string, error) {
-	header_string, err := convert_handler.Struct_ToString(header)
+	header_string, err := convert_handler.Struct_ToBytes(header)
 	if err != nil {
 		return "", err
 	}
-	payload_string, err := convert_handler.Struct_ToString(payload)
+	payload_string, err := convert_handler.Struct_ToBytes(payload)
 	if err != nil {
 		return "", err
 	}
 	signature, err := generate_signature(header_string, payload_string, "HS256")
 	if err != nil {
+		fmt.Println("[Token_Handler] Signature Error:", err)
 		return "", err
 	}
-	return base64.RawURLEncoding.EncodeToString([]byte(header_string)) + "." +
-			base64.RawURLEncoding.EncodeToString([]byte(payload_string)) + "." +
+	return base64.RawURLEncoding.EncodeToString(header_string) + "." +
+			base64.RawURLEncoding.EncodeToString(payload_string) + "." +
 			signature,
 		nil
 }
@@ -84,7 +93,7 @@ func Verify_Token(token string) (bool, error) {
 		return false, &struct_def.Invalid_Token_Error{}
 	}
 	// Generate a signature using the passed values
-	generated_signature, err := generate_signature(string(header), string(payload), "HS256")
+	generated_signature, err := generate_signature(header, payload, "HS256")
 	if err != nil {
 		return false, err
 	}

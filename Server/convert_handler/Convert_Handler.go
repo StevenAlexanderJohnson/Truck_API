@@ -32,6 +32,15 @@ func Dataset_To_Roles(data *sql.Rows) ([]string, error) {
 	return output, nil
 }
 
+func Struct_ToBytes(s interface{}) ([]byte, error) {
+	b, err := json.Marshal(s)
+	if err != nil {
+		// This should never be hit but if it is there is a problem.
+		return nil, err
+	}
+	return b, nil
+}
+
 func Struct_ToString(s interface{}) (string, error) {
 	b, err := json.Marshal(s)
 	if err != nil {
